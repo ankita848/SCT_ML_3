@@ -21,13 +21,13 @@ Source: Kaggle’s Cats vs Dogs dataset
 Structure:
 
 datasets/
-│── train/
-│   ├── cats/
-│   └── dogs/
-│── test/
-    ├── cats/
-    └── dogs/
-
+│── train/          ← training set (used for fitting the model)
+│   ├── cats/       ← cat images for training
+│   └── dogs/       ← dog images for training
+│
+│── test/           ← test set (used for evaluating the model)
+    ├── cats/       ← cat images for testing
+    └── dogs/       ← dog images for testing
 
 Sample Size: 25,000 images (can be reduced for CPU training, e.g., 500–1000 per class).
 
