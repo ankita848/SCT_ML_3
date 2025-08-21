@@ -18,15 +18,13 @@ Model evaluation & visualization of predictions
 
 Source: Kaggle’s Cats vs Dogs dataset
 
-Structure:
-
 datasets/
-│── train/
-│   ├── cats/
-│   └── dogs/
-│── test/
-    ├── cats/
-    └── dogs/
+    train/
+        cats/
+        dogs/
+    test/
+        cats/
+        dogs/
 
 
 Sample Size: 25,000 images (can be reduced for CPU training, e.g., 500–1000 per class).
