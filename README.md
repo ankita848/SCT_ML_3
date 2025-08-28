@@ -1,160 +1,254 @@
 Cat vs Dog Classifier Using MobileNetV2 + SVM
+
 📌 Project Overview
 
-This repository implements a Cat vs Dog classifier using transfer learning with MobileNetV2 for feature extraction and Support Vector Machine (SVM) for classification.
-The project covers:
 
-Image loading & preprocessing
 
-Feature extraction with MobileNetV2 (pretrained on ImageNet)
+This project implements a Cat vs Dog classifier using transfer learning with MobileNetV2 for feature extraction and Support Vector Machine (SVM) for classification.
 
-Dimensionality reduction with PCA (optional)
 
-Model training with Linear SVM
 
-Model evaluation & visualization of predictions
+The workflow includes:
+
+
+
+Image loading \& preprocessing
+
+
+
+Feature extraction using MobileNetV2 (pretrained on ImageNet)
+
+
+
+Optional dimensionality reduction with PCA
+
+
+
+Model training using Linear SVM
+
+
+
+Evaluation and visualization of predictions
+
+
 
 📊 Dataset
 
+
+
 Source: Kaggle’s Cats vs Dogs dataset
 
+
+
+Folder Structure:
+
+
+
 datasets/
-    train/
-        cats/
-        dogs/
-    test/
-        cats/
-        dogs/
+
+&nbsp;   train/
+
+&nbsp;       cat.0.jpg
+
+&nbsp;       dog.1.jpg
+
+&nbsp;       ...
 
 
-Sample Size: 25,000 images (can be reduced for CPU training, e.g., 500–1000 per class).
+
+
+
+Total images: ~25,000
+
+
+
+For CPU-based training, subset to ~500–1000 images per class
+
+
+
+All images are placed directly inside the train folder, with filenames containing cat or dog to indicate the class.
+
+
 
 🧮 Features Extracted
 
-We use MobileNetV2 (pretrained on ImageNet) to generate deep feature vectors for each image.
-These extracted features are then used to train the SVM classifier.
+
+
+Feature extractor: MobileNetV2 pretrained on ImageNet
+
+
 
 Input size: 64 × 64 RGB images
 
-Extracted features per image: ~1280 (before PCA)
+
+
+Features per image: ~1280 (before PCA)
+
+
 
 Target labels:
 
+
+
 0 → Cat 🐱
+
+
 
 1 → Dog 🐶
 
+
+
 ⚙️ Requirements
 
-Make sure you have Python 3.x installed along with the following libraries:
 
-numpy
-matplotlib
-scikit-learn
-tensorflow
+
+Python 3.x
+
+
+
+Libraries: numpy, matplotlib, scikit-learn, tensorflow
+
 
 
 Install via:
 
+
+
 pip install -r requirements.txt
 
+
+
 🛠 Methodology
+
 1️⃣ Data Loading
 
-Loaded images from train/cats and train/dogs.
 
-Limited number of samples per class (to avoid memory crashes).
+
+Load images from the train folder
+
+
+
+Determine class from filename (cat or dog)
+
+
+
+Limit number of samples per class for memory efficiency
+
+
 
 2️⃣ Preprocessing
 
-Resized all images to 64×64.
 
-Normalized pixel values to [0, 1].
 
-Created NumPy arrays for features (images) and labels (labels).
+Resize all images to 64×64
+
+
+
+Normalize pixel values to \[0, 1]
+
+
+
+Create NumPy arrays for features and labels
+
+
 
 3️⃣ Feature Extraction
 
-Used MobileNetV2 (imagenet weights, exclude top).
 
-Extracted high-level feature embeddings.
 
-Optionally applied PCA to reduce dimensionality.
+Use MobileNetV2 (imagenet weights, exclude top layers)
+
+
+
+Extract high-level feature embeddings
+
+
+
+Optional: Apply PCA for dimensionality reduction
+
+
 
 4️⃣ Model Training
 
-Trained a Linear SVM (Support Vector Machine) on the extracted features.
 
-Compared with LinearSVC for speed optimization on CPU.
+
+Train a Linear SVM on extracted features
+
+
+
+Optionally use LinearSVC for faster CPU training
+
+
 
 5️⃣ Model Evaluation
 
-Evaluated on test set.
-
-Calculated accuracy score.
-
-Visualized sample predictions with labels (Cat 🐱 / Dog 🐶).
-
-📥 Installation & Usage
-
-Clone this repository:
-
-git clone https://github.com/yourusername/cat-vs-dog-classifier.git
-cd cat-vs-dog-classifier
 
 
-Place dataset inside datasets/ directory.
-
-Open the notebook:
-
-jupyter notebook cat_vs_dog_classifier.ipynb
+Evaluate on test set
 
 
-Run the notebook sequentially to reproduce:
 
-Data preprocessing
+Compute accuracy score
 
-Feature extraction
 
-Model training
 
-Prediction & visualization
+Visualize sample predictions (correct ✅ / incorrect ❌)
+
+
 
 📈 Results
 
+
+
 Accuracy (with ~1000–2000 samples): 80–90%
 
-Accuracy improves with larger dataset & GPU training
+
+
+Accuracy improves with larger dataset and GPU training
+
+
 
 Visualization:
 
+
+
 Correct predictions labeled ✅
+
+
 
 Misclassifications labeled ❌
 
-📊 Features
 
-Preprocessing: Image resizing, normalization
-
-Feature Extraction: MobileNetV2 embeddings
-
-Model Training: Linear SVM
-
-Evaluation: Accuracy score, sample predictions visualization
 
 🔮 Future Improvements
 
+
+
 Increase dataset size for better generalization
+
+
 
 Apply data augmentation to reduce overfitting
 
-Fine-tune MobileNetV2 layers (instead of fixed features)
 
-Try advanced classifiers (Random Forest, XGBoost, CNN-based classifier)
 
-Deploy model via Flask / Streamlit
+Fine-tune MobileNetV2 layers (instead of using fixed features)
+
+
+
+Experiment with advanced classifiers (Random Forest, XGBoost, CNN-based models)
+
+
+
+Deploy the model using Flask or Streamlit
+
+
 
 👤 Author
 
+
+
 Ankita Das
+
 Machine Learning Intern @ Skillcraft Technology
+
