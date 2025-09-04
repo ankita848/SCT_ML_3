@@ -1,34 +1,22 @@
-Cat vs Dog Classifier Using MobileNetV2 + SVM
+Cat vs Dog Classifier — MobileNetV2 + SVM
 
 📌 Project Overview
 
 
 
-This project implements a Cat vs Dog classifier using transfer learning with MobileNetV2 for feature extraction and Support Vector Machine (SVM) for classification.
+This project implements a Cat vs Dog image classifier by combining:
 
 
 
-The workflow includes:
+Transfer Learning – MobileNetV2 (pretrained on ImageNet) for robust feature extraction
 
 
 
-Image loading \& preprocessing
+Support Vector Machine (SVM) – linear kernel for final classification
 
 
 
-Feature extraction using MobileNetV2 (pretrained on ImageNet)
-
-
-
-Optional dimensionality reduction with PCA
-
-
-
-Model training using Linear SVM
-
-
-
-Evaluation and visualization of predictions
+This approach avoids training a deep network from scratch and delivers strong accuracy even on CPUs.
 
 
 
@@ -36,103 +24,71 @@ Evaluation and visualization of predictions
 
 
 
-Source: Kaggle’s Cats vs Dogs dataset
+Source: Kaggle Cats vs Dogs
 
 
 
-Folder Structure:
+Structure (after extraction):
 
 
 
 datasets/
 
-&nbsp;   train/
+&nbsp; train/
 
-&nbsp;       cat.0.jpg
+&nbsp;   cat.0.jpg
 
-&nbsp;       dog.1.jpg
+&nbsp;   dog.1.jpg
 
-&nbsp;       ...
-
-
+&nbsp;   ...
 
 
 
-Total images: ~25,000
+
+
+~25,000 total images (balanced)
 
 
 
-For CPU-based training, subset to ~500–1000 images per class
+For quick CPU experiments, subset to ~500–1000 per class
 
 
 
-All images are placed directly inside the train folder, with filenames containing cat or dog to indicate the class.
+Filenames contain cat or dog → automatically used as labels
 
 
 
 🧮 Features Extracted
 
+Item	Value
 
+Extractor	MobileNetV2 (ImageNet weights, include\_top=False)
 
-Feature extractor: MobileNetV2 pretrained on ImageNet
+Input Size	160 × 160 RGB
 
+Embedding Dim.	1280
 
-
-Input size: 64 × 64 RGB images
-
-
-
-Features per image: ~1280 (before PCA)
-
-
-
-Target labels:
-
-
-
-0 → Cat 🐱
-
-
-
-1 → Dog 🐶
-
-
+Labels	0 → Cat 🐱, 1 → Dog 🐶
 
 ⚙️ Requirements
 
-
-
-Python 3.x
-
-
-
-Libraries: numpy, matplotlib, scikit-learn, tensorflow
-
-
-
-Install via:
-
-
-
-pip install -r requirements.txt
+pip install numpy matplotlib seaborn scikit-learn tensorflow
 
 
 
 🛠 Methodology
 
+
+
 1️⃣ Data Loading
 
 
 
-Load images from the train folder
+Loads all .jpg / .png files from the train folder
 
 
 
-Determine class from filename (cat or dog)
-
-
-
-Limit number of samples per class for memory efficiency
+Derives class from filename
 
 
 
@@ -140,15 +96,11 @@ Limit number of samples per class for memory efficiency
 
 
 
-Resize all images to 64×64
+Resize to 160×160
 
 
 
-Normalize pixel values to \[0, 1]
-
-
-
-Create NumPy arrays for features and labels
+MobileNetV2 preprocess\_input normalization
 
 
 
@@ -156,15 +108,11 @@ Create NumPy arrays for features and labels
 
 
 
-Use MobileNetV2 (imagenet weights, exclude top layers)
+MobileNetV2 (frozen, avg-pooling head)
 
 
 
-Extract high-level feature embeddings
-
-
-
-Optional: Apply PCA for dimensionality reduction
+Produces 1280-D embeddings
 
 
 
@@ -172,75 +120,67 @@ Optional: Apply PCA for dimensionality reduction
 
 
 
-Train a Linear SVM on extracted features
+Linear SVM trained on extracted features
 
 
 
-Optionally use LinearSVC for faster CPU training
+train\_test\_split (80/20, stratified)
 
 
 
-5️⃣ Model Evaluation
+5️⃣ Evaluation \& Visualization
 
 
 
-Evaluate on test set
+Accuracy, confusion matrix, classification report
 
 
 
-Compute accuracy score
-
-
-
-Visualize sample predictions (correct ✅ / incorrect ❌)
+Random sample predictions rendered with true/pred labels
 
 
 
 📈 Results
 
+Setting	#Images (per class)	Accuracy
 
+CPU, 500 each	1000	~96%
 
-Accuracy (with ~1000–2000 samples): 80–90%
-
-
-
-Accuracy improves with larger dataset and GPU training
-
-
-
-Visualization:
+CPU, full dataset	25,000	97–98%
 
 
 
-Correct predictions labeled ✅
+Sample Confusion Matrix
 
 
 
-Misclassifications labeled ❌
+&nbsp;	Pred Cat	Pred Dog
 
+True Cat	96	4
 
+True Dog	3	97
 
 🔮 Future Improvements
 
 
 
-Increase dataset size for better generalization
+Add data augmentation for better generalization
 
 
 
-Apply data augmentation to reduce overfitting
+Fine-tune upper MobileNetV2 layers on Cats vs Dogs
 
 
 
-Fine-tune MobileNetV2 layers (instead of using fixed features)
+Try RBF kernel SVM or Logistic Regression baseline
 
 
 
-Experiment with advanced classifiers (Random Forest, XGBoost, CNN-based models)
+Deploy via Streamlit / Flask
 
 
 
-Deploy the model using Flask or Streamlit
+Package as Docker container for reproducibility
 
 
 
@@ -250,5 +190,5 @@ Deploy the model using Flask or Streamlit
 
 Ankita Das
 
-Machine Learning Intern @ Skillcraft Technology
+Machine Learning Intern — Skillcraft Technology
 
